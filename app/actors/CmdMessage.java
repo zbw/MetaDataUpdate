@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * Created by Ott Konstantin on 02.06.2015.
+ * holds the command data
  */
 public class CmdMessage implements Serializable {
 

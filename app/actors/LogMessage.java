@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by Ott Konstantin on 03.06.2015.
+ * holds the log data
  */
 public class LogMessage implements Serializable {
 

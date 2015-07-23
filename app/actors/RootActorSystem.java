@@ -4,6 +4,7 @@ import akka.actor.ActorSystem;
 
 /**
  * Created by Ott Konstantin on 02.06.2015.
+ * this is the global Actorsystem
  */
 public class RootActorSystem {
 

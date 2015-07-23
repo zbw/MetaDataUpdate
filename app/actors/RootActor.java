@@ -4,6 +4,7 @@ import akka.actor.*;
 
 /**
  * Created by Ott Konstantin on 02.06.2015.
+ * the rootactor distributes to the working actors
  */
 public class RootActor extends UntypedActor {
 

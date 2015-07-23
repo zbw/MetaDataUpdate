@@ -25,12 +25,22 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * Controller with 4 actions
+ * index: show the form
+ * update: get form values and update Metadata
+ * status: show the status while updating
+ * log: write the logs into an csv file
+ */
 public class Application extends Controller {
 
 
     static ActorSystem actorSystem = RootActorSystem.getInstance().getActorSystem();
 
+    /**
+     * load previously saved values, fill the form and show template (views/index.scala.html)
+     * @return
+     */
     public static Result index() {
         File file = new File("cmd.json");
         Form<CmdMessage> cmdForm;
@@ -46,6 +56,10 @@ public class Application extends Controller {
         return ok(index.render(message, cmdForm));
     }
 
+    /**
+     * load the form values, validate them, create a command for the actor system
+     * @return
+     */
     public static Result update() {
         String result="";
         ActorSelection rootActor = actorSystem.actorSelection("user/RootActor");
@@ -76,6 +90,7 @@ public class Application extends Controller {
                     result +=line+" wrong syntax";
                     continue;
                 }
+                cmd.setPassword("");
                 JsonNode jnode = Json.toJson(cmd);
                 FileWriter writer = new FileWriter("cmd.json");
                 writer.write(jnode.toString());
@@ -88,6 +103,11 @@ public class Application extends Controller {
         return ok(update.render("Updating ...", result));
     }
 
+    /**
+     * this action ist called by ajax on updating data.
+     * It returns status information in json
+     * @return
+     */
     public static Result status() {
         ActorSelection statusActor = actorSystem.actorSelection("user/StatusActor");
         CmdMessage cmd = new CmdMessage(false);
@@ -117,6 +137,10 @@ public class Application extends Controller {
         return ok(result);
     }
 
+    /**
+     * write the logged data into a csv file and return it to the user
+     * @return
+     */
     public static Result log() {
         ActorSelection statusActor = actorSystem.actorSelection("user/StatusActor");
         CmdMessage cmd = new CmdMessage(false);

@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Created by Ott Konstantin on 03.06.2015.
+ * this actor collects status info and returns the logs
  */
 public class StatusActor extends UntypedActor {
 

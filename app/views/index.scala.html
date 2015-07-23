@@ -9,12 +9,12 @@
     <h1>Metadata Updater</h1>
     <h3>@message</h3>
     @helper.form(action = routes.Application.update(), 'id ->"inputform") {
-        @inputText(cmdForm("sru"), 'help -> "e.g. http://rosetta.develop.lza.tib.eu/delivery/sru?version=1.2&operation=searchRetrieve&query=")
-        @inputText(cmdForm("endpoint"), 'help -> "http://rosetta.develop.lza.tib.eu/dpsws/repository/IEWebServices")
-        @inputText(cmdForm("pds"), 'help -> "https://rosetta.develop.lza.tib.eu/pds")
+        @inputText(cmdForm("sru"), 'help -> "e.g. http://[Rosetta server]/delivery/sru?version=1.2&operation=searchRetrieve&query=")
+        @inputText(cmdForm("endpoint"), 'help -> "http://[Rosetta server]/dpsws/repository/IEWebServices")
+        @inputText(cmdForm("pds"), 'help -> "https://[Rosetta server]/pds")
         @inputText(cmdForm("institution"))
         @inputText(cmdForm("userName"))
-        @inputText(cmdForm("password"))
+        @inputText(cmdForm("password"))(FieldConstructor(views.html.bootstrapPassword.f), null)
         @inputText(cmdForm("searchkey"))
         @inputText(cmdForm("replacekey"))
         @inputText(cmdForm("replacekeyattribute"))

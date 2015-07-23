@@ -5,6 +5,7 @@ import java.util.Date;
 
 /**
  * Created by Ott Konstantin on 02.06.2015.
+ * holds the status info
  */
 public class StatusMessage implements Serializable {
 

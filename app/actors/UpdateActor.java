@@ -38,6 +38,8 @@ import java.util.List;
 
 /**
  * Created by Ott Konstantin on 02.06.2015.
+ * this actor does the work
+ * it gets the matching ids and updates the value in the metadata
  */
 public class UpdateActor extends UntypedActor {
 
@@ -67,40 +69,6 @@ public class UpdateActor extends UntypedActor {
             logs.add(updateIE(cmd,pid));
         }
         return logs;
-    }
-
-    private LogMessage updateIE(CmdMessage cmd, String pid) {
-        LogMessage log = new LogMessage(cmd.getKey(), cmd.getReplacekey(), cmd.getReplace(),pid, "updating");
-        PdsClient pds = PdsClient.getInstance();
-        try {
-            pds.init(cmd.getPds(), false);
-            IEWebServices iews = new IEWebServices_Service(new URL( cmd.getEndpoint()+"?wsdl"),new QName("http://dps.exlibris.com/", "IEWebServices")).getIEWebServicesPort();
-            BindingProvider ie_bindingProvider = (BindingProvider) iews;
-            ie_bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, cmd.getEndpoint());
-            String pdsHandle = pds.login(
-                    cmd.getInstitution(),
-                    cmd.getUserName(),
-                    cmd.getPassword());
-            String result = iews.getIEMD(pdsHandle, pid);
-            String dmc = iews.getMD(pdsHandle,pid);
-            String dcXml = getDCXml(result);
-            dcXml = replace(dcXml,cmd.getReplacekey(),cmd.getReplacekeyattribute(),cmd.getReplace());
-            MetaData md = createMetadata(dcXml);
-
-            ArrayList <MetaData> mds = new ArrayList<MetaData>();
-            mds.add(md);
-            String ok="ok";
-            if (!cmd.testmodus) {
-                iews.updateMD(pdsHandle, pid, mds);
-            } else {
-                ok = "TEST ok";
-            }
-            log = new LogMessage(cmd.getKey(), cmd.getReplacekey(), cmd.getReplace(),pid, ok);
-            //System.out.println(result);
-        } catch (Exception e) {
-            log = new LogMessage(cmd.getKey(),cmd.getReplacekey(), cmd.getReplace(),pid, e.getMessage());
-        }
-        return log;
     }
 
     /**
@@ -137,6 +105,49 @@ public class UpdateActor extends UntypedActor {
         }
         return ids;
     }
+
+    /**
+     * gets the metadata for the pid, modifies it and sends it back for saving
+     * @param cmd
+     * @param pid
+     * @return
+     */
+    private LogMessage updateIE(CmdMessage cmd, String pid) {
+        LogMessage log = new LogMessage(cmd.getKey(), cmd.getReplacekey(), cmd.getReplace(),pid, "updating");
+        PdsClient pds = PdsClient.getInstance();
+        try {
+            pds.init(cmd.getPds(), false);
+            IEWebServices iews = new IEWebServices_Service(new URL( cmd.getEndpoint()+"?wsdl"),new QName("http://dps.exlibris.com/", "IEWebServices")).getIEWebServicesPort();
+            BindingProvider ie_bindingProvider = (BindingProvider) iews;
+            ie_bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, cmd.getEndpoint());
+            String pdsHandle = pds.login(
+                    cmd.getInstitution(),
+                    cmd.getUserName(),
+                    cmd.getPassword());
+            String result = iews.getIEMD(pdsHandle, pid);
+            String dmc = iews.getMD(pdsHandle,pid);
+            String dcXml = getDCXml(result);
+            dcXml = replace(dcXml,cmd.getReplacekey(),cmd.getReplacekeyattribute(),cmd.getReplace());
+            MetaData md = createMetadata(dcXml);
+
+            ArrayList <MetaData> mds = new ArrayList<MetaData>();
+            mds.add(md);
+            String ok="ok";
+            if (!cmd.testmodus) {
+                iews.updateMD(pdsHandle, pid, mds);
+            } else {
+                ok = "TEST ok";
+            }
+            log = new LogMessage(cmd.getKey(), cmd.getReplacekey(), cmd.getReplace(),pid, ok);
+            //System.out.println(result);
+        } catch (Exception e) {
+            log = new LogMessage(cmd.getKey(),cmd.getReplacekey(), cmd.getReplace(),pid, e.getMessage());
+        }
+        return log;
+    }
+
+
+    // some utils coming here
 
     private String replace(String xml, String replacekey, String attr, String replacevalue) throws Exception {
         Document document = getXMLDocument(xml);
