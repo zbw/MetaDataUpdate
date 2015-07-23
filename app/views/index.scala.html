@@ -1,0 +1,27 @@
+@(message: String, cmdForm: Form[actors.CmdMessage])
+@import actors._
+@import helper._
+
+
+    @implicitField = @{FieldConstructor(bootstrapInput.f)}
+
+@main("zbw subapp") {
+    <h1>Metadata Updater</h1>
+    <h3>@message</h3>
+    @helper.form(action = routes.Application.update(), 'id ->"inputform") {
+        @inputText(cmdForm("sru"), 'help -> "e.g. http://rosetta.develop.lza.tib.eu/delivery/sru?version=1.2&operation=searchRetrieve&query=")
+        @inputText(cmdForm("endpoint"), 'help -> "http://rosetta.develop.lza.tib.eu/dpsws/repository/IEWebServices")
+        @inputText(cmdForm("pds"), 'help -> "https://rosetta.develop.lza.tib.eu/pds")
+        @inputText(cmdForm("institution"))
+        @inputText(cmdForm("userName"))
+        @inputText(cmdForm("password"))
+        @inputText(cmdForm("searchkey"))
+        @inputText(cmdForm("replacekey"))
+        @inputText(cmdForm("replacekeyattribute"))
+        @textarea(cmdForm("data"))(FieldConstructor(views.html.bootstrapTextarea.f), null)
+        @checkbox(cmdForm("testmodus"))(FieldConstructor(views.html.bootstrapCheckbox.f), null)
+        <div class="col-lg-2"></div><input class="btn btn-default" type="submit" value="Submit">
+    }
+
+
+}
