@@ -90,7 +90,7 @@ public class Application extends Controller {
                     result +=line+" wrong syntax";
                     continue;
                 }
-                cmd.setPassword("");
+
                 JsonNode jnode = Json.toJson(cmd);
                 FileWriter writer = new FileWriter("cmd.json");
                 writer.write(jnode.toString());
