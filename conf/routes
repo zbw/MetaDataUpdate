@@ -4,7 +4,6 @@
 
 # Home page
 GET         /                    controllers.Application.index
-GET        /update               controllers.Application.index
 POST        /update              controllers.Application.update
 GET         /status              controllers.Application.status
 GET         /log                 controllers.Application.log
