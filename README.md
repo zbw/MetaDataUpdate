@@ -1,15 +1,15 @@
 # MetaDataUpdate
 
 A showcase for using the Rosetta Webservices to update Metadata in Rosettas Permanent. 
-It's build with [play framework](https://www.playframework.com/), which I agree is a bit oversized for this little
+It's build with [play framework](https://www.playframework.com/), which I agree is a bit oversized for this small
 application. But it's my favorite developing environment, so it was quickly setup.  
 
-The application has a form page for entering the necessary data and a resultpage with progressbar and the
-possibility to download an csv file with the logged data. The once entered data are saved locally for later use.  
+The application has a form page for entering the necessary data and a result page with progressbar and the
+possibility to download an csv file with the logged data. The once entered data is saved locally for later use.  
 
-The application searches for a key by SRU, gets the ID of the IE so it can update the value in the replace key.  
+The application searches for a key by SRU, gets the ID of the IE so it can update the value in the replace key field.  
 
-Some values in the form maybe have to be explained:  
+Some values in the form have to be explained:  
 
 * **Searchkey**: the key field to be searched by SRU
 * **Replacekey**: the key field in the mets to be replaced
