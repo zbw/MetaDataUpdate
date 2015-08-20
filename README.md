@@ -7,7 +7,9 @@ application. But it's my favorite developing environment, so it was quickly setu
 The application has a form page for entering the necessary data and a result page with progressbar and the
 possibility to download an csv file with the logged data. The once entered data is saved locally for later use.  
 
-The application searches for a key by SRU, gets the ID of the IE so it can update the value in the replace key field.  
+The application searches for a key by SRU, gets the ID of the IE so it can update the value in the replace key field.
+The main logic is made in the [UpdateActor](https://github.com/ottk-zbw/MetaDataUpdate/blob/master/app/actors/UpdateActor.java)
+Speaking of Actor: PlayFramework is [reactive](http://www.reactivemanifesto.org/).
 
 Some values in the form have to be explained:  
 
