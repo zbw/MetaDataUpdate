@@ -25,8 +25,10 @@ You need a Java JDK
 ## Running
 
 * Clone it
+* Change permission of activator to make it executable
 * For running in [development mode](https://www.playframework.com/documentation/2.3.x/PlayConsole): `activator run`  
 * For creating a [standalone version](https://www.playframework.com/documentation/2.3.x/ProductionDist): `activator dist` 
-This produces a ZIP file containing all JAR files needed to run your application in the target/universal folder of your application.  
+This produces a ZIP file containing all JAR files needed to run your application in the target/universal folder of your application.
+There will be a directory bin in the unpacked zip containing startscripts for linux und windows.
 
 
