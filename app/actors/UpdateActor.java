@@ -133,7 +133,7 @@ public class UpdateActor extends UntypedActor {
 
             ArrayList <MetaData> mds = new ArrayList<MetaData>();
             mds.add(md);
-            String ok="ok";
+            String ok="not updated";
             if (!cmd.testmodus) {
                 iews.updateMD(pdsHandle, pid, mds);
             } else {
