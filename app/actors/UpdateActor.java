@@ -63,10 +63,11 @@ public class UpdateActor extends UntypedActor {
         if (sipIds.size() == 0) {
             LogMessage log = new LogMessage(cmd.getKey(),cmd.getReplacekey(), cmd.getReplace(),"", "not found");
             logs.add(log);
-        }
-        for (String pid:sipIds) {
-            // update IE
-            logs.add(updateIE(cmd,pid));
+        }  else {
+            for (String pid : sipIds) {
+                // update IE
+                logs.add(updateIE(cmd, pid));
+            }
         }
         return logs;
     }

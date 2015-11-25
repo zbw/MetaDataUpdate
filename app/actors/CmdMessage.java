@@ -45,6 +45,25 @@ public class CmdMessage implements Serializable {
         this.update = true;
         this.testmodus = testmodus;
     }
+    public CmdMessage(CmdMessage cmd) {
+        this.sru = cmd.sru;
+        this.endpoint = cmd.endpoint;
+        this.pds = cmd.pds;
+        this.searchkey = cmd.searchkey;
+        this.replacekey = cmd.replacekey;
+        this.replacekeyattribute = cmd.replacekeyattribute;
+        this.institution = cmd.institution;
+        this.userName = cmd.userName;
+        this.password = cmd.password;
+        this.key = cmd.key;
+        this.replace = cmd.replace;
+        this.update = this.update;
+        this.reset = this.reset;
+        this.status = this.status;
+        this.log = this.log;
+        this.testmodus = this.testmodus;
+        this.data = this.data;
+    }
 
     public CmdMessage() {}
 

@@ -79,23 +79,23 @@ public class Application extends Controller {
         String line = null;
         try {
             while ((line = bufreader.readLine()) != null) {
+                CmdMessage updatecmd = new CmdMessage(cmd);
                 List<String> values = Arrays.asList(line.split(";"));
                 if (values.size()==2) {
-                    cmd.setKey(values.get(0));
-                    cmd.setReplace(values.get(1));
-                    cmd.update=true;
-                    cmd.reset=false;
-                    rootActor.tell(cmd);
+                    updatecmd.setKey(values.get(0));
+                    updatecmd.setReplace(values.get(1));
+                    updatecmd.update=true;
+                    updatecmd.reset=false;
+                    rootActor.tell(updatecmd);
                 } else {
                     result +=line+" wrong syntax";
                     continue;
                 }
-
-                JsonNode jnode = Json.toJson(cmd);
-                FileWriter writer = new FileWriter("cmd.json");
-                writer.write(jnode.toString());
-                writer.close();
             }
+            JsonNode jnode = Json.toJson(cmd);
+            FileWriter writer = new FileWriter("cmd.json");
+            writer.write(jnode.toString());
+            writer.close();
 
         } catch (IOException e) {
             e.printStackTrace();
